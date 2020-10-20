@@ -1,0 +1,58 @@
+
+{% load static %}
+<section id="product-detail-section" class="block-section text-center" >
+    <div class="container">
+        <div class="row" style="margin:30px 10px">
+            <div class="col-lg-8 mx-auto">
+                <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+                    <!--Indicators-->
+                    <ol class="carousel-indicators">
+                    {% for p in photos %}
+                        <li data-target="#carousel-example-1z" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.counter0 == 0 %} active {% endif %}"></li>
+                    {% endfor %}
+                    </ol>
+                    <!--/.Indicators-->
+                    <!--Slides-->
+                    <div class="carousel-inner" role="listbox">
+                        {% for p in photos %}
+                        <div class="carousel-item {% if forloop.counter0 == 0 %} active {% endif %}">
+                        <img class="d-block w-100" src="{{p.image.url}}"
+                            alt="First slide">
+                        </div>
+                        {% endfor %}
+                        <!--/First slide-->
+                    <!--/.Slides-->
+                    <!--Controls-->
+                    <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                    <!--/.Controls-->
+                    </div>
+                </div>
+            </div>
+            <div class="col mx-auto" style="margin: 40px;">
+                <h1 class="text-white mb-4" >{{product.title}}</h1>
+                <p class="text-white-50">{{product.description}}</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                {% include "tabs.html" %}
+            </div>
+            <div class="col mx-auto">
+                {% include "inquiry.html" %}
+            </div> 
+        </div>
+    </div>
+</section>
+
+
+
+
+

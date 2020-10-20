@@ -1,0 +1,68 @@
+{% extends 'dashboard.html' %}
+{% load static %}
+{% static "" as baseUrl %}
+
+{% block content %}
+<section id="admin-catalogue" class="text-center" >
+  <div class="container">
+      <div class="row" style="margin:30px 10px">
+        <div class="col-lg-8 mx-auto">
+          <h1 class="text-white mb-4">{{catalogue.name}}</h1>
+          <p class="text-white-50">{{catalogue.description}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h2 class="text-white mb-4">Add a product to this catalogue</h1>
+          <form action="{% url 'create_product' name=catalogue.name %}" method="POST" enctype="multipart/form-data">
+            {{ form.non_field_errors }}
+            {% csrf_token %}
+            <div class="form-row">
+            {{form.title.errors}}
+            <label for="{{ form.title.id_for_label }}">Product Name: </label>
+            {{form.title}}
+            </div>
+            <div class="form-row">
+                {{form.display.errors}}
+                <label for="{{ form.display.id_for_label }}">Upload a display Picture: </label>
+                {{form.display}}
+            </div>
+            <div class="form-row">
+                {{form.description.errors}}
+                {{form.description.label_tag}}
+                {{form.description}}
+            </div>
+            <button class="btn btn-secondary" type="submit" >Add product</button>
+          </form>
+          {% for product in products %}
+              <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
+                <div class="col-lg-6"><img class="img-fluid" src="{{product.display.url}}" alt="some" /></div>
+                <div class="col-lg-6">
+                  <div class="text-center h-100 project bg-white" >
+                    <div class="d-flex h-100">
+                      <div class="project-text w-100 my-auto text-center text-lg-left" style="padding: 48px;">
+                        <h4 class="text-black" style="margin:8px">{{product.title}}</h4>
+                        <p class="text-black-50 mb-0">{{product.description}}</p>
+                        <hr class="d-none d-lg-block mb-0 ml-0" />
+                        <br/>
+                        <a class="btn btn-primary" href="/office/product/{{product.id}}/edit/{{catalogue.name}}" role="button">Edit</a>
+                        <a class="btn btn-primary" href="{% url 'delete_product' id=product.id name=catalogue.name %}" role="button">Delete</a>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              </div>
+              <br/>
+              <br/>
+          {% endfor %}
+        </div>
+      </div>
+  </div>
+</section>
+{% endblock %}
+
+
+
+
+
+

@@ -1,0 +1,121 @@
+{% extends 'dashboard.html' %}
+{% load static %}
+{% static "" as baseUrl %}
+
+{% block content %}
+<div class="container-fluid about-section" style="padding: 60px 100px;">
+    <div class="row" style="margin-top: 20px;">
+        <div class="col-5">
+            <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+                <!--Indicators-->
+                <ol class="carousel-indicators">
+                {% for p in photos %}
+                    <li data-target="#carousel-example-1z" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.counter0 == 0 %} active {% endif %}"></li>
+                {% endfor %}
+                </ol>
+                <!--/.Indicators-->
+                <!--Slides-->
+                <div class="carousel-inner" role="listbox">
+                    {% for p in photos %}
+                    <div class="carousel-item {% if forloop.counter0 == 0 %} active {% endif %}">
+                    <img class="d-block w-100" src="/images/{{p.image}}"
+                        alt="First slide">
+                    </div>
+                    {% endfor %}
+                    <!--/First slide-->
+                    <!--/.Slides-->
+                    <!--Controls-->
+                    <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                    <!--/.Controls-->
+                </div>
+            </div> 
+        </div>
+    
+        <div class="col">
+            <form action="{% url 'create_product' %}" method="POST" enctype="multipart/form-data">
+                    {{ form.non_field_errors }}
+                    {% csrf_token %}
+                    <div class="form-row">
+                    {{form.title.errors}}
+                    <label for="{{ form.title.id_for_label }}">Product Name: </label>
+                    {{form.title}}
+                </div>
+                <div class="form-row">
+                    {{form.display.errors}}
+                    <label for="{{ form.display.id_for_label }}">Upload a display Picture: </label>
+                    {{form.display}}
+                </div>
+                <div class="form-row">
+                    {{form.description.errors}}
+                    {{form.description.label_tag}}
+                    {{form.description}}
+                </div>
+                <input class="btn btn-secondary" type="submit" value="Submit">
+            </form>
+        </div>  
+    </div>
+
+    
+<div class="row">   
+        <div id="tabs" class="col-sm-8">
+            <ul>
+                <li><a href="#tabs-1">Specification</a></li>
+                <li><a href="#tabs-2">Description</a></li>
+            </ul>
+            <table id="tabs-1" class="table">
+                <tr>
+                    <td>Dimensions</td>
+                    <td>Available in all Custom Sizes</td>
+                </tr>
+                <tr>
+                    <td>Printing</td>
+                    <td>CMYK, PMS, Without printing</td>
+                </tr>
+                <tr>
+                    <td>Paper Stock</td>
+                    <td>10pt to 24pt (80lb to 200lb) (250gsm to 600gsm) Eco-Friendly Kraft, Corrugated and Flute Stock</td>
+                </tr>
+                <tr>
+                    <td>Quantities</td>
+                    <td>100 - 500,000</td>
+                </tr>
+                <tr>
+                    <td>Default Process</td>
+                    <td>Die Cutting, Gluing, Scoring, perforating</td>
+                </tr>
+                <tr>
+                    <td>Options</td>
+                    <td>Window Cut Out, Gold/Silver Foiling, Embossing, Raised Ink</td>
+                </tr>
+                <tr>
+                    <td>Proof</td>
+                    <td>Digital Proof, 3D Mock-up</td>
+                </tr>
+                <tr>
+                    <td>Turn Around Time</td>
+                    <td>6-8 Business Days</td>
+                </tr>
+                <tr>
+                    <td>Shipping</td>
+                    <td>Shipped Flat : Free Shipping to UK, USA, Canada & Australia </td>
+                </tr>
+                <tr>
+                    <td>Inquiries</td>
+                    <td>For further inquiries and Quotes contact us at USA: 5712873419 email to sales@printpoint.io</td>
+                </tr>
+                
+            </table>
+        </div> 
+        <div class="col-sm-4">
+            {% include "inquiry.html" %}
+        </div>  
+    </div>
+</div>
+{% endblock %}

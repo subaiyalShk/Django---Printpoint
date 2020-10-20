@@ -1,0 +1,44 @@
+{% extends 'dashboard.html' %}
+{% load static %}
+{% static "" as baseUrl %}
+
+{% block content %}
+<section id="inquires" class=" block-section text-center" >
+    <div class="container">
+        <div class="row" style="margin:30px 10px">
+        <div class="col-lg-8 mx-auto">
+            <h1 class="text-white mb-4">Inquiries</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            {% for inquiry in inquiries  %}
+                <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
+                    <div class="col-lg-6"><img class="img-fluid" src="/images/{{inquiry.art_work}}" alt="picture" /></div>
+                    <div class="col-lg-6">
+                    <div class="text-center h-100 project bg-white" >
+                        <div class="d-flex h-100">
+                        <div class="project-text w-100 my-auto text-center text-lg-left" style="padding: 48px;">
+                            <h4 class="text-black" style="margin:8px"> {{inquiry.product}} </h4>
+                            <p class="text-black" >Dimensions: {{inquiry.length}}L x {{inquiry.width}}W x {{inquiry.height}}H</p>
+                            <p class="text-black" >Unit; {{inquiry.unit}}</p>
+                            <p class="text-black" >Quantity; {{inquiry.quantity}}</p>
+                            <p class="text-black" >Printing; {{inquiry.printing}}</p>
+                            <p class="text-black" >Stock; {{inquiry.stock}}</p>
+                            <p class="text-black" >Inquiry by; {{inquiry.full_name}}</p>
+                            <p class="text-black" >email; {{inquiry.email}}</p>
+                            <p class="text-black" >phone; {{inquiry.phone}}</p>
+                            <p class="text-black" >notes; {{inquiry.notes}}</p>
+                            <hr class="d-none d-lg-block mb-0 ml-0" />
+                            <br/>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+</section>
+{% endblock %}

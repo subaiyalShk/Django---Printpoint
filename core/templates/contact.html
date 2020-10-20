@@ -1,0 +1,40 @@
+<section id="contact" class="block-section" >
+    <div class="container">
+        <div class="row justify-content-center" style="padding:50px">
+            <!--The div element for the map -->
+            <div id="map"></div>
+            <div class="col-lg-6 mx-auto">
+                <h2 class="text-white mb-4">Contact Us</h2>
+                <p class="text-white-50">
+                    Email: info@printpoint.io
+                </p>
+                <p class="text-white-50">
+                    +1-571-287-3419
+                </p>
+            </div>
+            <div class="col-lg-6 mx-auto">
+                {% include "contactForm.html" %}
+            </div>
+            <script>
+                // Initialize and add the map
+                function initMap() {
+                // The location of printpoint
+                var printpoint = {lat: 32.7821084, lng: -96.7981124};
+                // The map, centered at printpoint
+                var map = new google.maps.Map(
+                    document.getElementById('map'), {zoom: 15, center: printpoint});
+                // The marker, positioned at printpoint
+                var marker = new google.maps.Marker({position: printpoint, map: map});
+                }
+                    </script>
+                    <!--Load the API from the specified URL
+                    * The async attribute allows the browser to render the page while the API loads
+                    * The key parameter will contain your own API key (which is not needed for this tutorial)
+                    * The callback parameter executes the initMap() function
+                    -->
+            <script defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGRsC7-lraD0nO2SxasighyqAv9QKQBZ4&callback=initMap">
+            </script>
+        </div>
+    </div>
+</section>

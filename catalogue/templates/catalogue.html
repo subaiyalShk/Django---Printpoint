@@ -1,0 +1,58 @@
+
+<section id="catalogue" class="block-section text-center" >
+  <div class="container">
+      <div class="row" style="margin:30px 10px">
+        <div class="col-lg-8 mx-auto">
+          <h1 class="text-white mb-4">{{catalogueName}}</h1>
+          <p class="text-white-50">{{catalogueDescription}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          {% for product in products %}
+              <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
+                <div class="col-lg-6"><img class="img-fluid" src="{{product.display.url}}" alt="" /></div>
+                <div class="col-lg-6">
+                  <div class="text-center h-100 project bg-white" >
+                    <div class="d-flex h-100">
+                      <div class="project-text w-100 my-auto text-center text-lg-left" style="padding: 48px;">
+                        <h4 class="text-black" style="margin:8px">{{product.title}}</h4>
+                        <!-- <p class="text-black-50 mb-0">{{product.description}}</p> -->
+                        <hr class="d-none d-lg-block mb-0 ml-0" />
+                        <br/>
+                        <button class="btn btn-secondary" href='/catalogue/product/{{product.id}}'>Inquire</button>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              </div>
+              <br/>
+              <br/>
+          {% endfor %}
+        </div>
+      </div>
+  </div>
+</section>
+<script>
+  (function ($) {
+      "use strict"; 
+      $('button').click(function(e){
+      e.preventDefault()
+      $.ajax({
+        url: $(this).attr('href'),
+        method: 'get',
+        success: function(serverResponse){
+          $('#block-content').html(serverResponse)
+          console.log("Received this from server: ", serverResponse)
+          console.log("I should probably put that in the DOM...")
+        }
+      })
+    })
+  })(jQuery);
+</script>
+
+
+
+
+
+

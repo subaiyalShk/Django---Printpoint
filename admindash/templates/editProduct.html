@@ -1,0 +1,50 @@
+{% extends 'dashboard.html' %}
+{% load static %}
+{% static "" as baseUrl %}
+
+{% block content %}
+
+<section id="create-product" class="block-section text-center" >
+    <div class="container">
+        <form action="/office/product/{{product.id}}/edit/{{catalogue.name}}" method="POST">
+            {{ form.non_field_errors }}
+            {% csrf_token %}
+            <div class="row" style="margin: 20px;">
+                <div class="col-lg-5 mx-auto">
+                    <img src="{{product.display.url}}" alt="somethin" style="width: 320px;">
+                </div> 
+                <div class="col mx-auto">
+                    <div class="form-row" style="border-bottom: 0px;">
+                        {{form.title.errors}}
+                        <label for="{{ form.title.id_for_label }}">Product Name: </label>
+                        {{form.title}}
+                    </div>
+                    <div class="form-row" style="border-bottom: 0px;">
+                        {{form.display.errors}}
+                        <label for="{{ form.display.id_for_label }}">Upload a display Picture: </label>
+                        {{form.display}}
+                    </div>
+                    <div class="form-row" style="border-bottom: 0px;">
+                        {{form.description.errors}}
+                        {{form.description.label_tag}}
+                        {{form.description}}
+                    </div>
+                    <div class="form-row" style="border-bottom: 0px;">
+                        <button class="btn btn-secondary" type="submit">save</button>
+                    </div>
+                    
+                </div>  
+            </div>
+        </form>
+
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                {% include "tabs.html" %}
+            </div>
+            <div class="col mx-auto">
+                {% include "inquiry.html" %}
+            </div> 
+        </div>
+    </div>
+</div>
+{% endblock %}

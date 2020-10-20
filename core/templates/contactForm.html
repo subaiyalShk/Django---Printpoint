@@ -1,0 +1,33 @@
+
+<form>
+    {% csrf_token %}
+    <div class="form-group">
+        <input name="name" type="text" class="form-control" id="formGroupExampleInput" placeholder="Your name">
+    </div>
+    <div class="form-group">
+        <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Your email">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+        <textarea name="message" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Shoot us a message"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<script>
+    (function ($) {
+        "use strict"; 
+        $('form').submit(function(e){
+            e.preventDefault()
+            $.ajax({
+            url: '/contact',
+            method: 'post',
+            data: $(this).serialize(),
+            success: function(serverResponse){
+                $('form').html(serverResponse)
+                console.log("Received this from server: ", serverResponse)
+                console.log("I should probably put that in the DOM...")
+            }
+            }) 
+        })
+    })(jQuery);
+</script>

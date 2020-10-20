@@ -1,0 +1,114 @@
+{{ inquiryForm.non_field_errors }}
+{% load widget_tweaks %}
+
+
+<h4 style="margin: 35px 15px;" class="text-white-50">Get a Free Custom Quote!</h4>
+<form style="padding: 26px;" action="{% url 'inquire' id=product.id %}" method="POST">
+    {% csrf_token %}
+    <div class="form-row" style="border-bottom: 0px;">
+        <div class="col form-group">
+            {{ inquiryForm.length.errors }}
+            <label class="text-white-50" for="{{ inquiryForm.length.id_for_label }}">Length* </label>
+            {{ inquiryForm.length }}
+        </div>
+        <div class="col form-group">
+            {{ inquiryForm.printing.errors }}
+            <label class="text-white-50" for="{{ inquiryForm.width.id_for_label }}">Width* </label>
+            {{ inquiryForm.width }}
+        </div>
+        <div class="col form-group">
+            {{ inquiryForm.height.errors }}
+            <label class="text-white-50" for="{{ inquiryForm.height.id_for_label }}">Height* </label>
+            {{ inquiryForm.height }}
+        </div>
+    </div>
+
+    <div class="form-row" style="border-bottom: 0px;">
+        <div class="col-md-12 form-group">
+            {{ inquiryForm.unit.errors }}
+            <label class="text-white-50" for="{{ inquiryForm.unit.id_for_label }}">Unit* </label>
+            {{ inquiryForm.unit }}
+        </div>
+    </div>
+
+    <div class="form-row" style="border-bottom: 0px;">
+        <div class="col-md-12 form-group">
+            {{ inquiryForm.quantity.errors }}
+            <label class="text-white-50" for="{{ inquiryForm.quantity.id_for_label }}">Quantity* </label>
+            {{ inquiryForm.quantity }}
+        </div>
+    </div>
+
+    <div class="form-row" style="border-bottom: 0px;">
+        <div class="col-md-6 form-group">
+            {{ inquiryForm.printing.errors }}
+            <label class="text-white-50" for="{{ inquiryForm.printing.id_for_label }}">Printing* </label>
+            {{ inquiryForm.printing }}
+        </div>
+        <div class="col-md-6 form-group">
+            {{ inquiryForm.stock.errors }}
+            <label class="text-white-50" for="{{ inquiryForm.stock.id_for_label }}">Stock(Optional) </label>
+            {{ inquiryForm.stock }}
+        </div>
+    </div>
+
+    <div class="form-row" style="border-bottom: 0px;">
+        <div class="col-md-12 form-group">
+            {{ inquiryForm.art_work.errors }}
+            <label class="text-white-50" for="{{ inquiryForm.art_work.id_for_label }}">Upload Art Work: </label>
+            {{ inquiryForm.art_work }}
+        </div>
+    </div>
+    
+    <div class="form-row" style="border-bottom: 0px;">
+        <div class="col-md-12 form-group">
+            {{ inquiryForm.full_name.errors }}
+            <label class="text-white-50" for="{{ inquiryForm.full_name.id_for_label }}">Full Name: </label>
+            {{ inquiryForm.full_name }}
+        </div>
+    </div>
+
+    <div class="form-row" style="border-bottom: 0px;">
+        <div class="col-md-6 form-group">
+            {{ inquiryForm.email.errors }}
+            <label class="text-white-50" for="{{ inquiryForm.email.id_for_label }}">Email: </label>
+            {{ inquiryForm.email }}
+        </div>
+        <div class="col-md-6 form-group">
+            {{ inquiryForm.phone.errors }}
+            <label class="text-white-50" for="{{ inquiryForm.phone.id_for_label }}">Phone: </label>
+            {{ inquiryForm.phone }}
+        </div>
+    </div>
+
+    <div class="form-row" style="border-bottom: 0px;">
+        <div class="col-md-12 form-group">
+            {{ inquiryForm.notes.errors }}
+            <label class="text-white-50" for="{{ inquiryForm.notes.id_for_label }}">Notes: </label>
+            {{ inquiryForm.notes }}
+        </div>
+    </div>
+    <div class="form-row" style="border-bottom: 0px;">
+        <div class="col-md-12 form-group">
+            <button type="submit" class="btn btn-secondary">Submit</button>
+        </div>
+    </div>
+</form>
+<script>
+    (function ($) {
+        "use strict"; 
+        $('form').submit(function(e){
+            e.preventDefault()
+            $.ajax({
+            url:  $(this).attr('action'),
+            method: 'post',
+            data: $(this).serialize(),
+            success: function(serverResponse){
+                $('form').html(serverResponse)
+                console.log("Received this from server: ", serverResponse)
+                console.log("I should probably put that in the DOM...")
+            }
+            }) 
+        })
+    })(jQuery);
+</script>
