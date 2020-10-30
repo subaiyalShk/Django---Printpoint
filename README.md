@@ -21,32 +21,32 @@ This project is build using Django. It Utilizes django forms, built in authentic
     DEBUG=%True
 
 ### 2. Change SMTP server 'email to' address [ core/views.py ]
-'''
+```
 send_mail(subject, 
             message, 
             'from@email.com', 
             ['recipent@email.com'], 
             fail_silently=False,
             )
-'''
+```
 
 ### 3. Configure Static files and Media files for development [ {{projectName}}/settings.py ]
 comment out line 157 and 158 in settings.py
-'''
+```
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-'''
+```
 
 ### 4. Register Super User <a href="https://github.com/StartBootstrap/startbootstrap-grayscale">click here for official Django documentation</a>
 method 1: from root directory of your project run : python manage.py createsuperuser
 method 2: from root directory of your project run : python manage.py shell
-'''
+```
     >>> from django.contrib.auth.models import User
     >>> user=User.objects.create_user('foo', password='bar')
     >>> user.is_superuser=True
     >>> user.is_staff=True
     >>> user.save()
-'''
+```
 
 ### 4. Run development server
 Once you have followed through all the steps, run the following from your project root:
@@ -57,14 +57,14 @@ The Following steps should be taken after ssh'ing into your deployment machine, 
 
 ### 1. Server Configuration
 run the following commands:
-'''
+```
     ubuntu@54.162.31.253:~$ sudo apt-get install python3-venv
     ubuntu@54.162.31.253:~$ cd {{ project repo name }} 
     ubuntu@54.162.31.253:~/myRepoName$ python3 -m venv venv //We are using the venv command and naming our virtual env venv
     ubuntu@54.162.31.253:~/myRepoName$ source venv/bin/activate
     (venv) ubuntu@54.162.31.253:~/myRepoName$ pip install gunicorn
     (venv) ubuntu@54.162.31.253:~/myRepoName$ pip install -r requirements.txt
-'''
+```
 
 ### 1. Create Amazon Web Services S3 buckets
 1. Give the bucket a unique, DNS-compliant name and select a region
@@ -76,19 +76,19 @@ run the following commands:
 
 ### 3. Configure settings.py [ {{projectName}}/settings.py ]
 1. Take Access key Id and secret key that you just created above and place it in your .env file which should be in your projects root directory (if there is no .env file create one and add all your secret environment variables there). Like this:
-'''
+```
     AWS_ACCESS_KEY_ID=%{{your AWS KEY ID}}
     AWS_SECRET_ACCESS_KEY=%{{your AWS SECRET ACCESS KEY}}
     EMAIL_HOST_USER=%{{email Id you want to use to send emails}}
     EMAIL_HOST_PASSWORD=%{{password for that email}}
     DEBUG=%False
-'''
+```
 
 2. Make sure Boto3 (python library for AWS) is installed in your virtual env by running pip freeze in your terminal.
 3. Add your deployment machine's IP address and domain name you plane to use if you have one in ALLOWED_HOSTS. Like this: 
     ALLOWED_HOSTS = ['123.456.78.910', 'yourdomainname.com']
 3. Check to see if storages is added in your installed Apps. Like this :
-'''
+```
     INSTALLED_APPS = [
         'django.contrib.admin',
         'django.contrib.auth',
@@ -101,10 +101,10 @@ run the following commands:
         'catalogue', 
         'storages',
     ]
-  '''
+```
   
 4. See if AWS S3 Bucket settings are properly defined in settings.py. Uncomment DEFAULT_FILE_STORAGE and STATICFILES_STORAGE. Like this:
-'''
+```
     #S3 BUCKETS CONFIG
     AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY= config('AWS_SECRET_ACCESS_KEY')
@@ -115,7 +115,7 @@ run the following commands:
 
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-'''
+```
 
 
 
